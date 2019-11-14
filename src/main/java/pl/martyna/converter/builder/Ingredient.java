@@ -23,7 +23,7 @@ public class Ingredient {
     public static String[] NUTRIENTS_EN = {"fat", "energy", "saturated-fat", "sugars",
                                             "sodium", "salt", "proteins"};
     private String name;
-    private int quantity;
+    private double quantity;
     private String unit;
     private Set<String> brands;
     private Set<String> ingredientTypes;
@@ -38,7 +38,7 @@ public class Ingredient {
     public static final class Builder {
 
         private String name;
-        private int quantity = 1;
+        private double quantity = 1.0;
         private String unit;
         private Set<String> brands = new HashSet<>();
         private Set<String> ingredientTypes = new HashSet<>();
@@ -61,16 +61,16 @@ public class Ingredient {
 
             quantityWithUnit = quantityWithUnit.replaceAll("\\s+", "");
             String[] splittedQuantity = quantityWithUnit.split("[^-?0-9]+");
-             long quantity = 1;
+             double quantity = 1.0;
             try{
-                quantity = Long.parseLong(splittedQuantity[0]);
+                quantity = Double.parseDouble(splittedQuantity[0]);
             }catch (NumberFormatException | ArrayIndexOutOfBoundsException | ClassCastException ex){
 
                 if(ex instanceof ClassCastException){
                     System.out.println("Error value: " + splittedQuantity[0]);
                 }
                 System.out.println("Reading quantity exception. Setting quantity to 1");
-                quantity = 1;
+                quantity = 1.0;
             }
 
             this.quantity *= quantity;
